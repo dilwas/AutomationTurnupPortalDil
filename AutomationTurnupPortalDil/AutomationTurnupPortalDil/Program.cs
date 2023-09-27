@@ -123,3 +123,17 @@ deleteButton.Click();
 
 //Click Ok button on alert popup
 driver.SwitchTo().Alert().Accept();
+
+Thread.Sleep(3000);
+
+//Verifying whether last deleted record is removed from the list
+IWebElement lastCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+if (lastCode.Text != "67890")
+{
+    Console.WriteLine("Last record has been deleted successfully");
+}
+else
+{
+    Console.WriteLine("Last records has not deleted");
+
+}
