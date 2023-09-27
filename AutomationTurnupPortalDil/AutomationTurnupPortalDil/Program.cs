@@ -115,7 +115,11 @@ else
 }
 
 
+//Test case - Delete the updated Time record
 
+//Click delete button of last record
+IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+deleteButton.Click();
 
-
-
+//Click Ok button on alert popup
+driver.SwitchTo().Alert().Accept();
