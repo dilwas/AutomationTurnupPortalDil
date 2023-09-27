@@ -54,7 +54,7 @@ typeCodeDropdown.Click();
 
 //Enter code 
 IWebElement codeTextBox = driver.FindElement(By.Id("Code"));
-codeTextBox.SendKeys("12340");
+codeTextBox.SendKeys("12345");
 
 //Enter Description
 IWebElement descriptionTextBox = driver.FindElement(By.Id("Description"));
@@ -74,13 +74,44 @@ IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\
 goToLastPageButton.Click();
 
 IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-if (newCode.Text == "12340")
+if (newCode.Text == "12345")
 {
     Console.WriteLine("New time record has been created successfully");
 }
 else
 {
     Console.WriteLine("Time record has not created");
+}
+
+//Test case - Edit the created new Time record
+
+//Click edit button of last record
+IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+editButton.Click();
+
+//Change the code
+IWebElement editCodeTextBox = driver.FindElement(By.Id("Code"));
+editCodeTextBox.Clear();
+editCodeTextBox.SendKeys("67890");
+
+
+//Click on the save button
+IWebElement editSaveButton = driver.FindElement(By.Id("SaveButton"));
+editSaveButton.Click();
+
+Thread.Sleep(5000);
+//Check if the Time record has been updated successfully
+IWebElement editGoToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+editGoToLastPageButton.Click();
+
+IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+if (updatedCode.Text == "67890")
+{
+    Console.WriteLine("Time record has been updated successfully");
+}
+else
+{
+    Console.WriteLine("Time record has not updated");
 }
 
 
