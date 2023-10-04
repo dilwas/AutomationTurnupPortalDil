@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using AutomationTurnupPortalDil.Pages.Utilites;
+using AutomationTurnupPortalDil.Utilities;
 
 namespace AutomationTurnupPortalDil.Tests
 {

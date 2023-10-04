@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationTurnupPortalDil.Pages.Utilites
+namespace AutomationTurnupPortalDil.Utilities
 {
     public class Wait
     {

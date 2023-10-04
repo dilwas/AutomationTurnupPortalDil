@@ -1,4 +1,4 @@
-﻿using AutomationTurnupPortalDil.Pages.Utilites;
+﻿using AutomationTurnupPortalDil.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -25,6 +25,7 @@ namespace AutomationTurnupPortalDil.Pages
             //Select time from dropdown
             IWebElement typemainCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[1]"));
             typemainCodeDropdown.Click();
+            Wait.WaitToBeClickabel(driver, "Xpath", "//*[@id=\"TypeCode_listbox\"]/li[2]", 5);
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
             typeCodeDropdown.Click();
 
