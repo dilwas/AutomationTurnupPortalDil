@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,23 @@ namespace AutomationTurnupPortalDil.Pages
         }
         public void GoToTMPage(IWebDriver driver)
         {
-            //Navigate to Time & Material module
-            IWebElement administrationDropdown = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
-            administrationDropdown.Click();
-
-            IWebElement tmOption = driver.FindElement(By.XPath("//a[contains(text(),'Time & Materials')]"));
-            tmOption.Click();
+         try 
+            {
+                //Navigate to Time & Material module
+                IWebElement administrationDropdown = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+                administrationDropdown.Click();
+            }
+         catch(Exception exception)
+            {
+                Assert.Fail("Turnup portal not displayed",exception.Message);
+            }
+               
+                IWebElement tmOption = driver.FindElement(By.XPath("//a[contains(text(),'Time & Materials')]"));
+                tmOption.Click();
+                Thread.Sleep(3000);
+            
+          
+           
         }
     }
 }

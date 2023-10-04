@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationTurnupPortalDil.Pages.Utilites;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,9 @@ namespace AutomationTurnupPortalDil.Pages
         //Test case - Create a new Time record
         public void CreateTimeRecord(IWebDriver driver)
         {
+            // WebDriverWait webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //webDriverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"container\"]/p/a")));
+            Wait.WaitToBeClickabel(driver, "Xpath", "//*[@id=\"container\"]/p/a", 5);
             //Click on the create new button
             IWebElement createNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
             createNewButton.Click();
@@ -24,9 +30,11 @@ namespace AutomationTurnupPortalDil.Pages
 
             //Enter code 
             IWebElement codeTextBox = driver.FindElement(By.Id("Code"));
+            Wait.WaitToBeClickabel(driver, "Id", "Code", 7);
             codeTextBox.SendKeys("12345");
 
             //Enter Description
+            Wait.WaitToBeVisible(driver, "Id", "Description", 7);
             IWebElement descriptionTextBox = driver.FindElement(By.Id("Description"));
             descriptionTextBox.SendKeys("This is a test 1");
 
@@ -44,19 +52,16 @@ namespace AutomationTurnupPortalDil.Pages
             goToLastPageButton.Click();
 
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (newCode.Text == "12345")
-            {
-                Console.WriteLine("New time record has been created successfully");
-            }
-            else
-            {
-                Console.WriteLine("Time record has not created");
-            }
+            Assert.That(newCode.Text == "12345", "Time record has not created");
         }
 
         //Test case - Edit the created new Time record
         public void EditTimeRecord(IWebDriver driver)
         {
+            //Nabvigaeting to last page
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            goToLastPageButton.Click();
+
             //Click edit button of last record
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
@@ -76,19 +81,16 @@ namespace AutomationTurnupPortalDil.Pages
             editGoToLastPageButton.Click();
 
             IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (updatedCode.Text == "67890")
-            {
-                Console.WriteLine("Time record has been updated successfully");
-            }
-            else
-            {
-                Console.WriteLine("Time record has not updated");
-            }
+            Assert.That(updatedCode.Text == "67890", "Time record has not updated");
         }
 
         //Test case - Delete the updated Time record
         public void DeleteTimeRecord(IWebDriver driver)
         {
+            //Nabvigaeting to last page
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            goToLastPageButton.Click();
+
             //Click delete button of last record
             IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             deleteButton.Click();
@@ -100,15 +102,7 @@ namespace AutomationTurnupPortalDil.Pages
 
             //Verifying whether last deleted record is removed from the list
             IWebElement lastCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (lastCode.Text != "67890")
-            {
-                Console.WriteLine("Last record has been deleted successfully");
-            }
-            else
-            {
-                Console.WriteLine("Last records has not deleted");
-
-            }
+            Assert.That(lastCode.Text != "67890", "Last record has not deleted");
         }
     }
 }
